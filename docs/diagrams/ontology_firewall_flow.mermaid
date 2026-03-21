@@ -1,0 +1,7 @@
+flowchart TD
+    Action[Proposed Action] --> Validate[SHACL Validate]
+    Validate --> Check{Allowed?}
+    Check -->|No| Block[BLOCKED - Violations]
+    Check -->|Yes| Allow[ALLOWED]
+    Block --> Art9[Art. 9 Risk Mitigation]
+    Allow --> Art15[Art. 15 Deterministic]

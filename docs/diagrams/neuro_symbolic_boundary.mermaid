@@ -1,0 +1,18 @@
+flowchart LR
+    subgraph Prob["Probabilistic (LLM)"]
+        IA[Intake Agent]
+    end
+
+    subgraph Det["Deterministic"]
+        RA[Rules Agent]
+        QA[QA Agent]
+    end
+
+    subgraph Firewall["Firewall"]
+        FW[SHACL Validation]
+    end
+
+    IA -->|"interpret only"| FW
+    FW -->|"validated actions"| RA
+    RA -->|"only decider"| QA
+    IA -.->|"CANNOT decide"| RA

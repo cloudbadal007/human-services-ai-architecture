@@ -1,0 +1,25 @@
+@prefix : <http://human-services-ai.org/ontology/life-events#> .
+@prefix hs: <http://human-services-ai.org/ontology#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+:LifeEventType a owl:Class ;
+    rdfs:label "Life Event Type" ;
+    rdfs:comment "No Wrong Door: Life events map to affected programs for cross-program review." .
+
+:JobLoss a :LifeEventType ;
+    rdfs:label "Job Loss" ;
+    rdfs:comment "Affects SNAP, Medicaid, TANF, Housing." .
+
+:IncomeChange a :LifeEventType ;
+    rdfs:label "Income Change" ;
+    rdfs:comment "Affects SNAP, Medicaid, TANF, Housing, WIC." .
+
+:HouseholdChange a :LifeEventType ;
+    rdfs:label "Household Change" ;
+    rdfs:comment "Affects SNAP, Medicaid, TANF, WIC, Childcare." .
+
+:affectedPrograms a owl:ObjectProperty ;
+    rdfs:domain :LifeEventType ;
+    rdfs:range hs:BenefitProgram ;
+    rdfs:comment "Maps life event to programs requiring review." .

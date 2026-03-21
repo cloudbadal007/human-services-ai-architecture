@@ -1,0 +1,10 @@
+flowchart TD
+    LE[Life Event: Job Loss] --> Map[affected_programs]
+    Map --> SNAP[SNAP Review]
+    Map --> Medicaid[Medicaid Review]
+    Map --> TANF[TANF Review]
+    Map --> Housing[Housing Review]
+    SNAP --> Human[Human Review Required]
+    Medicaid --> Human
+    TANF --> Human
+    Housing --> Human

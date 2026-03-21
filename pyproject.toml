@@ -1,0 +1,73 @@
+[project]
+name = "human-services-ai-architecture"
+version = "0.1.0"
+description = "EU AI Act-compliant production architecture for government human services — MCP + OWL + SHACL + Agentic Orchestration"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.10"
+authors = [
+    { name = "Pankaj Kumar", email = "cloudbadal007@users.noreply.github.com" }
+]
+keywords = [
+    "eu-ai-act",
+    "human-services",
+    "government-ai",
+    "compliance",
+    "high-risk-ai",
+    "eligibility",
+    "ontology",
+    "shacl",
+    "owl",
+    "mcp",
+    "agentic-ai",
+    "deterministic-ai",
+    "no-wrong-door",
+    "benefits",
+    "social-services",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "pydantic>=2.0",
+    "rdflib>=7.0",
+    "pyshacl>=0.24",
+    "rich>=13.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.1.0",
+]
+
+[project.scripts]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-v --tb=short"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+ignore = ["E501"]

@@ -1,0 +1,115 @@
+@prefix : <http://human-services-ai.org/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# EU AI Act Art. 9 — Risk Management: Status misinterpretation
+# BLOCKED when status is Active/Pending — only Enrolled/Renewed permit approval
+:BenefitApprovalShape a sh:NodeShape ;
+    rdfs:label "Benefit Approval Shape" ;
+    rdfs:comment "EU AI Act Art. 9: Mitigates semantic status misinterpretation risk. Active ≠ Enrolled." ;
+    sh:target :EligibilityAction ;
+    sh:property [
+        sh:path :status ;
+        sh:in ("Enrolled" "Renewed") ;
+        sh:minCount 1 ;
+        sh:message "BLOCKED [EU AI Act Art. 9 — Risk Management]: Status must be 'Enrolled' or 'Renewed' for approval. 'Active' means in-progress, NOT enrolled. Approval denied."
+    ] ;
+    sh:severity sh:Violation .
+
+# EU AI Act Art. 9 — Enrollment completion required
+:EnrollmentRequiredShape a sh:NodeShape ;
+    rdfs:label "Enrollment Required Shape" ;
+    rdfs:comment "EU AI Act Art. 9: Prevents enrollment workflow bypass." ;
+    sh:target :EligibilityAction ;
+    sh:property [
+        sh:path :enrollmentComplete ;
+        sh:hasValue true ;
+        sh:message "BLOCKED [EU AI Act Art. 9 — Risk Management]: Enrollment must be complete before approval."
+    ] ;
+    sh:severity sh:Violation .
+
+# EU AI Act Art. 15 — SNAP income threshold (130% FPL)
+:SNAPIncomeShape a sh:NodeShape ;
+    rdfs:label "SNAP Income Shape" ;
+    rdfs:comment "EU AI Act Art. 15: Income must be below 130% FPL for SNAP gross income test." ;
+    sh:target :SNAPEligibility ;
+    sh:property [
+        sh:path :annualIncome ;
+        sh:maxInclusive :incomeLimit ;
+        sh:message "BLOCKED [EU AI Act Art. 15 — Accuracy]: SNAP income exceeds 130% FPL threshold."
+    ] ;
+    sh:severity sh:Violation .
+
+# EU AI Act Art. 15 — Medicaid income threshold (138% FPL)
+:MedicaidIncomeShape a sh:NodeShape ;
+    rdfs:label "Medicaid Income Shape" ;
+    rdfs:comment "EU AI Act Art. 15: Income must be below 138% FPL for expansion Medicaid." ;
+    sh:target :MedicaidEligibility ;
+    sh:property [
+        sh:path :annualIncome ;
+        sh:maxInclusive :incomeLimit ;
+        sh:message "BLOCKED [EU AI Act Art. 15 — Accuracy]: Medicaid income exceeds 138% FPL threshold."
+    ] ;
+    sh:severity sh:Violation .
+
+# EU AI Act Art. 10 — Data quality: household size valid
+:HouseholdDataShape a sh:NodeShape ;
+    rdfs:label "Household Data Shape" ;
+    rdfs:comment "EU AI Act Art. 10: Household size must be 1-20 for valid calculation." ;
+    sh:target :HouseholdData ;
+    sh:property [
+        sh:path :householdSize ;
+        sh:minInclusive 1 ;
+        sh:maxInclusive 20 ;
+        sh:datatype xsd:integer ;
+        sh:message "BLOCKED [EU AI Act Art. 10 — Data Governance]: Household size must be between 1 and 20."
+    ] ;
+    sh:severity sh:Violation .
+
+# EU AI Act Art. 12 — Audit trail requirements
+:DeterminationAuditShape a sh:NodeShape ;
+    rdfs:label "Determination Audit Shape" ;
+    rdfs:comment "EU AI Act Art. 12: Valid date and rule version required for record-keeping." ;
+    sh:target :EligibilityDetermination ;
+    sh:property [
+        sh:path :determinationDate ;
+        sh:datatype xsd:dateTime ;
+        sh:minCount 1 ;
+        sh:message "BLOCKED [EU AI Act Art. 12 — Record-Keeping]: Determination date required."
+    ] ;
+    sh:property [
+        sh:path :ruleVersion ;
+        sh:minCount 1 ;
+        sh:message "BLOCKED [EU AI Act Art. 12 — Record-Keeping]: Rule version required for audit."
+    ] ;
+    sh:severity sh:Violation .
+
+# EU AI Act Art. 14 — Human oversight on life events
+:LifeEventReviewShape a sh:NodeShape ;
+    rdfs:label "Life Event Review Shape" ;
+    rdfs:comment "EU AI Act Art. 14: Life events require human review." ;
+    sh:target :LifeEvent ;
+    sh:property [
+        sh:path :requiresHumanReview ;
+        sh:hasValue true ;
+        sh:message "BLOCKED [EU AI Act Art. 14 — Human Oversight]: Life event must require human review."
+    ] ;
+    sh:severity sh:Violation .
+
+# EU AI Act Art. 10 — Application completeness
+:ApplicationCompletenessShape a sh:NodeShape ;
+    rdfs:label "Application Completeness Shape" ;
+    rdfs:comment "EU AI Act Art. 10: All required fields must be present." ;
+    sh:target :Application ;
+    sh:property [
+        sh:path :applicantId ;
+        sh:minCount 1 ;
+        sh:message "BLOCKED [EU AI Act Art. 10 — Data Governance]: Applicant ID required."
+    ] ;
+    sh:property [
+        sh:path :program ;
+        sh:minCount 1 ;
+        sh:message "BLOCKED [EU AI Act Art. 10 — Data Governance]: Program required."
+    ] ;
+    sh:severity sh:Violation .

@@ -1,0 +1,9 @@
+flowchart TD
+    Event[Life Event] --> Intake[Intake Agent]
+    Intake --> Prog{For each program}
+    Prog --> Retrieval[Retrieval Agent]
+    Retrieval --> Rules[Rules Agent]
+    Rules --> Firewall[Ontology Firewall]
+    Firewall --> QA[QA Agent]
+    QA --> Expl[Explanation Generator]
+    Expl --> Review[Caseworker Review]

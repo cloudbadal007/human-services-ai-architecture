@@ -1,0 +1,19 @@
+sequenceDiagram
+    participant Agent
+    participant MCP
+    participant Firewall
+    participant Audit
+
+    Agent->>MCP: check_eligibility(params)
+    MCP->>Firewall: guard_eligibility_determination
+    Firewall->>Firewall: validate_action (SHACL)
+    alt BLOCKED
+        Firewall-->>MCP: BLOCKED
+        MCP->>Audit: record (blocked)
+        MCP-->>Agent: blocked=True
+    else ALLOWED
+        Firewall-->>MCP: ALLOWED
+        MCP->>MCP: calculate eligibility
+        MCP->>Audit: record (result)
+        MCP-->>Agent: eligible, explanation
+    end

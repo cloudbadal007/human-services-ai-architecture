@@ -1,0 +1,4 @@
+EU AI Act-compliant production architecture for government human services — MCP + OWL Ontology + SHACL + Agentic Orchestration
+
+Set this as the repository description in GitHub:
+Settings → General → Description

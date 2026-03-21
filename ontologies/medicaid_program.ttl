@@ -1,0 +1,17 @@
+@prefix : <http://human-services-ai.org/ontology/medicaid#> .
+@prefix hs: <http://human-services-ai.org/ontology#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+:MedicaidProgram a owl:Class ;
+    rdfs:subClassOf hs:BenefitProgram ;
+    rdfs:label "Medicaid" ;
+    rdfs:comment "Medicaid expansion at 138% FPL, traditional at 75%." .
+
+:MedicaidEligibility a owl:Class ;
+    rdfs:label "Medicaid Eligibility Criteria" ;
+    rdfs:comment "Eligibility for Medicaid expansion or traditional." .
+
+:MedicaidIncomeLimit a owl:DatatypeProperty ;
+    rdfs:domain :MedicaidEligibility ;
+    rdfs:label "Income limit (138% or 75% FPL)" .

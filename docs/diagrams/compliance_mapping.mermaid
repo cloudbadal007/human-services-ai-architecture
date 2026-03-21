@@ -1,0 +1,27 @@
+flowchart LR
+    subgraph EU["EU AI Act"]
+        A9[Art. 9 Risk]
+        A10[Art. 10 Data]
+        A11[Art. 11 Doc]
+        A12[Art. 12 Record]
+        A13[Art. 13 Trans]
+        A14[Art. 14 Human]
+        A15[Art. 15 Accuracy]
+    end
+
+    subgraph Arch["Architecture"]
+        SHACL[SHACL Firewall]
+        OWL[OWL Ontology]
+        Audit[Audit Trail]
+        Expl[Explanations]
+        Agents[Agent Specs]
+        Rules[Rules Agent]
+    end
+
+    A9 --> SHACL
+    A10 --> OWL
+    A11 --> SHACL
+    A12 --> Audit
+    A13 --> Expl
+    A14 --> Agents
+    A15 --> Rules

@@ -1,0 +1,17 @@
+@prefix : <http://human-services-ai.org/ontology/snap#> .
+@prefix hs: <http://human-services-ai.org/ontology#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+:SNAPProgram a owl:Class ;
+    rdfs:subClassOf hs:BenefitProgram ;
+    rdfs:label "Supplemental Nutrition Assistance Program" ;
+    rdfs:comment "SNAP (food stamps). Gross income 130% FPL, net income 100% FPL." .
+
+:SNAPEligibility a owl:Class ;
+    rdfs:label "SNAP Eligibility Criteria" ;
+    rdfs:comment "Eligibility determination for SNAP. Requires income and household data." .
+
+:SNAPIncomeLimit a owl:DatatypeProperty ;
+    rdfs:domain :SNAPEligibility ;
+    rdfs:label "Income limit (130% FPL)" .

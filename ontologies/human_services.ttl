@@ -1,0 +1,73 @@
+@prefix : <http://human-services-ai.org/ontology#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:HumanServices a owl:Ontology ;
+    rdfs:label "Human Services Core Ontology" ;
+    rdfs:comment "Shared semantic layer for government benefit systems. EU AI Act Art. 10." .
+
+# Application status — CRITICAL: Active ≠ Enrolled
+# Many legacy systems use 'Active' for 'in progress' which is often
+# misinterpreted by AI as 'enrolled and receiving benefits'.
+# Only Enrolled and Renewed permit disbursement.
+:ApplicationStatus a owl:Class ;
+    rdfs:label "Application Status" ;
+    rdfs:comment "Status of benefit application. Active = in progress, NOT disbursement-permitted." .
+
+:StatusActive a :ApplicationStatus ;
+    rdfs:label "Active" ;
+    rdfs:comment "Legacy status meaning 'in progress'. Does NOT permit disbursement. Common source of AI misinterpretation (Art. 9 risk)." .
+
+:StatusEnrolled a :ApplicationStatus ;
+    rdfs:label "Enrolled" ;
+    rdfs:comment "Approved and receiving benefits. Permits disbursement." .
+
+:StatusRenewed a :ApplicationStatus ;
+    rdfs:label "Renewed" ;
+    rdfs:comment "Renewal approved. Permits disbursement." .
+
+:StatusInProgress a :ApplicationStatus ;
+    rdfs:label "In Progress" ;
+    rdfs:comment "Same as Active — application not yet approved. Legacy trap: 'Active' in many systems means this, NOT 'Enrolled'. Never approve disbursement for Active/InProgress." .
+
+# Life events (Art. 14)
+:LifeEvent a owl:Class ;
+    rdfs:label "Life Event" ;
+    rdfs:comment "Significant change affecting benefit eligibility. Requires human review per Art. 14." .
+
+:requiresHumanReview a owl:DatatypeProperty ;
+    rdfs:domain :LifeEvent ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "Art. 14: Life events require caseworker confirmation. Must be true." .
+
+# Eligibility determination (Art. 11)
+:EligibilityDetermination a owl:Class ;
+    rdfs:label "Eligibility Determination" ;
+    rdfs:comment "Result of eligibility calculation. Must include rule version for Art. 11." .
+
+:ruleVersion a owl:DatatypeProperty ;
+    rdfs:domain :EligibilityDetermination ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Art. 11: Version of rules used for technical documentation." .
+
+# Shapes target classes (for SHACL reference)
+:EligibilityAction a owl:Class ;
+    rdfs:label "Eligibility Action" ;
+    rdfs:comment "Proposed eligibility action for validation." .
+
+:HouseholdData a owl:Class ;
+    rdfs:label "Household Data" ;
+    rdfs:comment "Household composition for eligibility." .
+
+:Application a owl:Class ;
+    rdfs:label "Application" ;
+    rdfs:comment "Benefit application." .
+
+# Benefit programs
+:BenefitProgram a owl:Class .
+:SNAP a :BenefitProgram ; rdfs:label "SNAP" .
+:Medicaid a :BenefitProgram ; rdfs:label "Medicaid" .
+:TANF a :BenefitProgram ; rdfs:label "TANF" .
+:Housing a :BenefitProgram ; rdfs:label "Housing" .
+:WIC a :BenefitProgram ; rdfs:label "WIC" .

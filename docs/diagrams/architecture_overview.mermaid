@@ -1,0 +1,26 @@
+flowchart TB
+    subgraph Layer1["Layer 1: MCP (Art. 12, 15)"]
+        MCP[Eligibility Server]
+        MCP2[Case History Server]
+        MCP3[Life Event Server]
+    end
+
+    subgraph Layer2["Layer 2: OWL + SHACL (Art. 9, 10, 11)"]
+        OWL[OWL Ontology]
+        SHACL[SHACL Shapes]
+        FW[Ontology Firewall]
+    end
+
+    subgraph Layer3["Layer 3: Agents (Art. 13, 14)"]
+        IA[Intake Agent]
+        RA[Rules Agent]
+        QA[QA Agent]
+    end
+
+    Citizen --> IA
+    IA --> MCP
+    MCP --> FW
+    FW --> RA
+    RA --> QA
+    OWL --> FW
+    SHACL --> FW

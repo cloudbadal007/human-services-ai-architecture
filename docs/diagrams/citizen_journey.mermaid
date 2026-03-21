@@ -1,0 +1,9 @@
+flowchart TD
+    Citizen[Citizen] --> Intake[Report Life Event]
+    Intake --> Interpret[Intake Agent Interprets]
+    Interpret --> Programs[Identify Programs]
+    Programs --> Eval[Evaluate Each Program]
+    Eval --> Explain[Generate 3-Level Explanation]
+    Explain --> Review[Flag for Caseworker]
+    Review --> Citizen2[Citizen notified]
+    Citizen2 --> Human[Caseworker Confirms]
