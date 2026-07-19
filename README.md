@@ -113,7 +113,6 @@ make compliance-report       # Generate conformity assessment
 
 ## Related Repositories
 
-- [curam-cer-ontology-agent](https://github.com/cloudbadal007/curam-cer-ontology-agent) — Domain-specific CER migration implementation
 - [ontoguard-ai](https://github.com/cloudbadal007/ontoguard-ai) — Generic ontology firewall
 - [ontology-firewall-enterprise-iq](https://github.com/cloudbadal007/ontology-firewall-enterprise-iq) — Enterprise IQ implementation
 - [universal-agent-connector](https://github.com/cloudbadal007/universal-agent-connector) — MCP + Ontology infrastructure
